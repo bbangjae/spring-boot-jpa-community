@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import springStudy.springCommunity.domain.Community;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -14,17 +16,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CommunityRepositoryTest {
 
 
-    @Autowired CommunityRepository communityRepository;
+    @Autowired
+    SpringDataJpaCommunityRepository communityRepository;
     @Test
     void H2ConnectTest() {
 
         Community community = new Community();
         community.setTitle("test");
 
-        Long saveId = communityRepository.save(community);
-        Community findCommunity = communityRepository.findById(saveId);
-        assertEquals(community, findCommunity);
+        Community savedCommunity = communityRepository.save(community);
+
+        Long savedId = savedCommunity.getId();
+        Optional<Community> findCommunity = communityRepository.findById(savedId);
+
+        assertEquals(findCommunity.get().getId(), savedId);
+
     }
-
-
 }
