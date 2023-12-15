@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface SpringDataJpaCommunityRepository extends JpaRepository<Community, Long>, CommunityRepository {
     @Override
-    Optional<Community> findByTitle(String title);
+    Optional<Community> findByCommunityTitle(String communityTitle);
 }

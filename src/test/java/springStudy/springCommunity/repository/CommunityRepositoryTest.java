@@ -9,6 +9,7 @@ import springStudy.springCommunity.domain.Community;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @SpringBootTest
@@ -22,14 +23,14 @@ public class CommunityRepositoryTest {
     void H2ConnectTest() {
 
         Community community = new Community();
-        community.setTitle("test");
+        community.setCommunityTitle("test");
 
         Community savedCommunity = communityRepository.save(community);
 
         Long savedId = savedCommunity.getId();
         Optional<Community> findCommunity = communityRepository.findById(savedId);
 
+        assertTrue(findCommunity.isPresent());
         assertEquals(findCommunity.get().getId(), savedId);
-
     }
 }
